@@ -2,7 +2,7 @@ name: Test auto minify
 on:
   push:
     branches:
-      - 'dev'
+      - 'main'
 
 env:
   NODE_ENV: development
