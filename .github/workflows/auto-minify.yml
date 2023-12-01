@@ -1,32 +1,21 @@
-name: Test auto minify
-on:
-  push:
-    branches:
-      - 'main'
+name: Auto Format
 
-env:
-  NODE_ENV: development
+on: push
 
 jobs:
-  build:
+  format-code:
     runs-on: ubuntu-latest
+
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Auto Minify
+      - uses: actions/checkout@v4
+      # Other steps that change files in the repository
         uses: nizarmah/auto-minify@v2.1
-
-      - name: Auto committing minified files
-        uses: stefanzweifel/git-auto-commit-action@v4
+      # Commit all changed files back to the repository
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Github Action: Auto Minified JS and CSS files"
-          branch: main
